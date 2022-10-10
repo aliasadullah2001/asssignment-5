@@ -53,6 +53,11 @@ app.get("/managers",function (req,res) {
   
 )))));
 
+app.use((req, res) => {
+  res.status(404).send("error 404 page not found!");
+});
+
+
 // setup http server to listen on HTTP_PORT
 
 data.initialize()
