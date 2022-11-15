@@ -71,16 +71,16 @@ exports.getManagers = function(){
     });
 }
 exports.addEmployee = function(employeeData){
-    if(!employeeData.isManager) employeeData.isManager = false;
-    else employeeData.isManager = true;
-    employeeData.employeeNum = employees.length+1;
-    employees.push(employeeData);
-    return new Promise((resolve, reject) => {
-        resolve(employees);
-        if(employees.length == 0)
-        reject("no results returned");
+    return new Promise((resolve, reject)=>{
+        if (!employeeData.isManager)
+            employeeData.isManager = false;
+        else
+            employeeData.isManager = true;
+        employeeData.employeeNum = employees.length + 1;
+        employees.push(employeeData);
+        resolve();
     });
-};
+}
 
 exports.getEmployeesByStatus = function(status){
     return new Promise((resolve, reject) => {
@@ -116,4 +116,27 @@ exports.getEmployeesByNum = function(num){
         if(filteredEmployees.length == 0)
         reject("no results returned");
     });
+}
+
+exports.updateEmployee = function(employeeData){
+    return new Promise(function(resolve, reject){
+
+
+        for(let i = 0; i< employees.length; ++i){
+
+            if (employees[i].employeeNum == employeeData.employeeNum){
+                console.log("MATCH FOUND FOR UPDATE");
+                employees[i] = employeeData;
+                console.log("Update complete");
+                resolve();
+            }
+
+        }
+
+        reject("No employee of " + employeeData.employeeNum + "Found");
+            
+
+        
+
+    })
 }
